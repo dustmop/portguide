@@ -1,0 +1,11 @@
+{
+  "name": "portguide",
+  "version": "0.7.0",
+  "description": "Guess the portname for your usb connected microcontroller, using simple heuristics.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Dustin Long <me@dustmop.io>",
+  "license": "ISC"
+}
