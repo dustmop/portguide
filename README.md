@@ -15,7 +15,7 @@ var port = new SerialPort(portguide.findPort(), {
 
 No need to worry about plugging your device into the wrong usb port, portguide has got you covered!
 
-Currently only supports OSX, but Linux and Windows are coming very soon.
+Currently supports OSX and Windows. Linux support is coming very soon.
 
 # install
 

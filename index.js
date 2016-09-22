@@ -1,12 +1,46 @@
 var fs = require('fs');
+var child_process = require('child_process');
 
 var dir;
 var pattern;
+var generatorFunc;
+
+function listDevices(collector, dir, pattern) {
+  var items = fs.readdirSync(dir);
+  for (var i = 0; i < items.length; i++) {
+    if (items[i].match(pattern)) {
+      collector.push(dir + items[i]);
+    }
+  }
+}
+
+function queryWinDevices(collector, dir, pattern) {
+  const DEVICE_Description = 9;
+  const DEVICE_DeviceID = 10;
+
+  var cmd = 'wmic path Win32_SerialPort get /format:csv';
+  var stdout = child_process.execSync(cmd).toString();
+  var lines = stdout.split('\n');
+  for (var k = 0; k < lines.length; k++) {
+    var item = lines[k].trim();
+    if (item.length == 0) {
+      continue;
+    }
+    var device = item.split(',');
+    if (device[DEVICE_Description].match(pattern)) {
+      collector.push(device[DEVICE_DeviceID]);
+    }
+  }
+}
 
 // TODO: Support more operating systems.
 if (process.platform == 'darwin') {
   dir = '/dev/';
   pattern = /cu.usbmodem\w+/;
+  generatorFunc = listDevices;
+} else if (process.platform == 'win32') {
+  pattern = /Arduino|Tessel/
+  generatorFunc = queryWinDevices;
 } else {
   console.log('Could not determine operating system!');
   process.exit(1);
@@ -22,13 +56,7 @@ function findPort() {
     return candidates[0];
   }
 
-  var items = fs.readdirSync(dir);
-
-  for (var i = 0; i < items.length; i++) {
-    if (items[i].match(pattern)) {
-      candidates.push(dir + items[i]);
-    }
-  }
+  generatorFunc(candidates, dir, pattern);
 
   if (candidates.length == 0) {
     throw 'Could not find any connected devices.';
