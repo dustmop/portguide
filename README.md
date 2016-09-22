@@ -26,3 +26,5 @@ npm install portguide
 # caveats
 
 Portguide's operation is not terribly intelligent. It simply looks for a device with a familiar naming pattern, but doesn't verify that the connection will actually work. Furthermore, if more than one device is attached, portguide will decline to pick one; instead it will just fail.
+
+Probably not suitable for production, but great for experimentation, demos, or just showing off!
