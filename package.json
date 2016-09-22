@@ -1,6 +1,6 @@
 {
   "name": "portguide",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "description": "Guess the portname for your usb connected microcontroller, using simple heuristics.",
   "main": "index.js",
   "scripts": {
