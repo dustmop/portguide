@@ -8,14 +8,14 @@ For example, connect your Arduino or Tessel, then instead of figuring out your p
 var portguide = require('portguide');
 var SerialPort = require('serialport');
 var port = new SerialPort(portguide.findPort(), {
-  baudrate: 9600
+  baudRate: 9600
 });
 ....
 ```
 
 No need to worry about plugging your device into the wrong usb port, portguide has got you covered!
 
-Currently supports OSX and Windows. Linux support is coming very soon.
+Supports Linux, OSX, and Windows.
 
 # install
 

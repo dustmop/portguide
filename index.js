@@ -38,6 +38,10 @@ if (process.platform == 'darwin') {
   dir = '/dev/';
   pattern = /cu.usbmodem\w+/;
   generatorFunc = listDevices;
+} else if (process.platform == 'linux') {
+  dir = '/dev/';
+  pattern = /ttyACM\d+/;
+  generatorFunc = listDevices;
 } else if (process.platform == 'win32') {
   pattern = /Arduino|Tessel/
   generatorFunc = queryWinDevices;
